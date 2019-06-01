@@ -78,3 +78,64 @@ sudo systemctl enable docker
 
 # install pip
 pip install --upgrade pip ansible awscli docker-compose
+
+
+
+# install gcp
+echo -e "[google-cloud-sdk]\nname=Google Cloud SDK\nbaseurl=https://packages.cloud.google.com/dnf/repos/cloud-sdk-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/dnf/doc/dnf-key.gpg\n       https://packages.cloud.google.com/dnf/doc/rpm-package-key.gpg" | sudo tee /etc/dnf.repos.d/google-cloud-sdk.repo
+sudo dnf install -y google-cloud-sdk
+
+# install azure
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/dnfrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/dnf.repos.d/azure-cli.repo'
+sudo dnf install -y azure-cli
+
+# install terraform
+sudo dnf install -y unzip
+sudo curl -sSLj -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.12.0/terraform_0.12.0_linux_amd64.zip
+sudo unzip -d /opt/terraform /tmp/terraform.zip
+sudo rm -rf /tmp/terraform.zip
+sudo ln -s /opt/terraform/terraform /bin/terraform
+
+# install packer
+sudo dnf install -y unzip
+sudo curl -sSLj -o /tmp/packer.zip https://releases.hashicorp.com/packer/1.4.1/packer_1.4.1_linux_amd64.zip
+sudo unzip -d /opt/packer /tmp/packer.zip
+sudo rm -rf /tmp/packer.zip
+sudo ln -s /opt/packer/packer /bin/packer
+
+# install vault
+sudo dnf install -y unzip
+sudo curl -sSLj -o /tmp/vault.zip https://releases.hashicorp.com/vault/1.1.2/vault_1.1.2_linux_amd64.zip
+sudo unzip -d /opt/vault /tmp/vault.zip
+sudo rm -rf /tmp/vault.zip
+sudo ln -s /opt/vault/vault /bin/vault
+
+
+# install consul
+sudo dnf install -y unzip
+sudo curl -sSLj -o /tmp/consul.zip https://releases.hashicorp.com/consul/1.5.1/consul_1.5.1_linux_amd64.zip
+sudo unzip -d /opt/consul /tmp/consul.zip
+sudo rm -rf /tmp/consul.zip
+sudo ln -s /opt/consul/consul /bin/consul
+
+
+# install vagrant
+sudo dnf install -y unzip
+sudo curl -sSLj -o /tmp/vagrant.zip https://releases.hashicorp.com/vagrant/2.2.4/vagrant_2.2.4_linux_amd64.zip
+sudo unzip -d /opt/vagrant /tmp/vagrant.zip
+sudo rm -rf /tmp/vagrant.zip
+sudo ln -s /opt/vagrant/vagrant /bin/vagrant
+
+
+# install nomad
+sudo dnf install -y unzip
+sudo curl -sSLj -o /tmp/nomad.zip https://releases.hashicorp.com/nomad/0.9.1/nomad_0.9.1_linux_amd64.zip
+sudo unzip -d /opt/nomad /tmp/nomad.zip
+sudo rm -rf /tmp/nomad.zip
+sudo ln -s /opt/nomad/nomad /bin/nomad
+
+
+# install inspec
+sudo dnf install -y https://packages.chef.io/files/stable/inspec/4.3.2/el/7/inspec-4.3.2-1.el7.x86_64.rpm
+

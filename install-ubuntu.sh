@@ -88,3 +88,84 @@ sudo systemctl enable docker
 # install pip
 pip install --upgrade pip ansible awscli docker-compose
 
+
+
+# install gcp
+CLOUD_SDK_REPO="cloud-sdk-$(grep VERSION_CODENAME /etc/os-release | cut -d '=' -f 2)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install google-cloud-sdk
+
+# install azure
+sudo apt-get update
+sudo apt-get install curl apt-transport-https lsb-release gnupg
+curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+    gpg --dearmor | \
+    sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+
+AZ_REPO=$(lsb_release -cs)
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+sudo apt-get update
+sudo apt-get install azure-cli
+
+
+
+# install terraform
+sudo apt-get install -y unzip
+sudo curl -sSLj -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.12.0/terraform_0.12.0_linux_amd64.zip
+sudo unzip -d /opt/terraform /tmp/terraform.zip
+sudo rm -rf /tmp/terraform.zip
+sudo ln -s /opt/terraform/terraform /bin/terraform
+
+# install packer
+sudo apt-get install -y unzip
+sudo curl -sSLj -o /tmp/packer.zip https://releases.hashicorp.com/packer/1.4.1/packer_1.4.1_linux_amd64.zip
+sudo unzip -d /opt/packer /tmp/packer.zip
+sudo rm -rf /tmp/packer.zip
+sudo ln -s /opt/packer/packer /bin/packer
+
+# install vault
+sudo apt-get install -y unzip
+sudo curl -sSLj -o /tmp/vault.zip https://releases.hashicorp.com/vault/1.1.2/vault_1.1.2_linux_amd64.zip
+sudo unzip -d /opt/vault /tmp/vault.zip
+sudo rm -rf /tmp/vault.zip
+sudo ln -s /opt/vault/vault /bin/vault
+
+
+# install consul
+sudo apt-get install -y unzip
+sudo curl -sSLj -o /tmp/consul.zip https://releases.hashicorp.com/consul/1.5.1/consul_1.5.1_linux_amd64.zip
+sudo unzip -d /opt/consul /tmp/consul.zip
+sudo rm -rf /tmp/consul.zip
+sudo ln -s /opt/consul/consul /bin/consul
+
+
+# install vagrant
+sudo apt-get install -y unzip
+sudo curl -sSLj -o /tmp/vagrant.zip https://releases.hashicorp.com/vagrant/2.2.4/vagrant_2.2.4_linux_amd64.zip
+sudo unzip -d /opt/vagrant /tmp/vagrant.zip
+sudo rm -rf /tmp/vagrant.zip
+sudo ln -s /opt/vagrant/vagrant /bin/vagrant
+
+
+# install nomad
+sudo apt-get install -y unzip
+sudo curl -sSLj -o /tmp/nomad.zip https://releases.hashicorp.com/nomad/0.9.1/nomad_0.9.1_linux_amd64.zip
+sudo unzip -d /opt/nomad /tmp/nomad.zip
+sudo rm -rf /tmp/nomad.zip
+sudo ln -s /opt/nomad/nomad /bin/nomad
+
+
+
+
+
+# install inspec
+sudo curl -sSLj -o /tmp/inspec_4.3.2-1_amd64.deb https://packages.chef.io/files/stable/inspec/4.3.2/ubuntu/18.04/inspec_4.3.2-1_amd64.deb
+sudo dpkg -i /tmp/inspec_4.3.2-1_amd64.deb
+sudo rm -rf /tmp/inspec_4.3.2-1_amd64.deb
+
+
+
